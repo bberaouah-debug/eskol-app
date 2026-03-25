@@ -40,7 +40,7 @@ export default function Layout() {
 
           {user?.role === 'admin' && (
             <>
-              <div className="nav-divider">Admin</div>
+              <div className="nav-divider">{t('nav.admin_divider')}</div>
               <NavLink to="/usuarios" className={({ isActive }) => isActive ? 'nav-item active' : 'nav-item'}>
                 <span className="nav-icon">👤</span> {t('nav.usuarios')}
               </NavLink>

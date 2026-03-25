@@ -1,0 +1,13 @@
+{
+  "welcome": "Bienvenido de nuevo, {{name}}",
+  "stats": {
+    "inventory": "Inventario",
+    "incidents": "Incidencias Abiertas",
+    "location": "Ubicación Actual",
+    "main_workshop": "Taller Principal"
+  },
+  "activity": {
+    "title": "Resumen de actividad",
+    "placeholder": "Próximamente verás aquí las últimas actualizaciones de material e incidencias."
+  }
+}

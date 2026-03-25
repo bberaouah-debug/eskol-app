@@ -17,7 +17,8 @@
     "inventario": "Inventario",
     "incidencias": "Incidencias",
     "usuarios": "Usuarios",
-    "configuracion": "Configuración"
+    "configuracion": "Configuración",
+    "admin_divider": "Administración"
   },
   "roles": {
     "admin": "Administrador",

@@ -1,0 +1,99 @@
+version: '3.8'
+
+services:
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - eskol_net
+    depends_on:
+      - frontend
+      - backend
+      - wordpress
+
+  backend:
+    build:
+      context: ./backend
+    env_file:
+      - .env
+    expose:
+      - "8000"
+    networks:
+      - eskol_net
+    depends_on:
+      mariadb:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./frontend
+    expose:
+      - "80"
+    networks:
+      - eskol_net
+
+  wordpress:
+    image: wordpress:latest
+    env_file:
+      - .env
+    expose:
+      - "80"
+    volumes:
+      - ./data/wordpress:/var/www/html
+    networks:
+      - eskol_net
+    depends_on:
+      mariadb:
+        condition: service_healthy
+
+  mariadb:
+    image: mariadb:10.11
+    env_file:
+      - .env
+    volumes:
+      - ./data/mariadb:/var/lib/mysql
+    networks:
+      - eskol_net
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  mongo:
+    image: mongo:7
+    env_file:
+      - .env
+    volumes:
+      - ./data/mongodb:/data/db
+    networks:
+      - eskol_net
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    ports:
+      - "8080:80"
+    environment:
+      PMA_HOST: mariadb
+    networks:
+      - eskol_net
+    depends_on:
+      - mariadb
+
+  n8n:
+    image: n8nio/n8n
+    ports:
+      - "5678:5678"
+    volumes:
+      - ./data/n8n:/home/node/.n8n
+    env_file:
+      - .env
+    networks:
+      - eskol_net
+
+networks:
+  eskol_net:
+    name: eskol_net
+    driver: bridge

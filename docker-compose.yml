@@ -27,6 +27,9 @@ services:
   frontend:
     build:
       context: ./frontend
+      args:
+        - VITE_API_URL=${VITE_API_URL}
+        - VITE_APP_URL=${VITE_APP_URL}
     ports:
       - "8083:80"
     networks:

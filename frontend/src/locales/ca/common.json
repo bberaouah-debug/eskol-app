@@ -1,0 +1,29 @@
+{
+  "app_name": "Eskol",
+  "loading": "Carregant...",
+  "save": "Desar",
+  "cancel": "Cancel·lar",
+  "delete": "Eliminar",
+  "edit": "Editar",
+  "create": "Crear",
+  "search": "Cerca...",
+  "logout": "Tancar sessió",
+  "language": "Idioma",
+  "no_results": "No s'han trobat resultats",
+  "confirm_delete": "Estàs segur que vols eliminar aquest element?",
+  "error_generic": "S'ha produït un error. Torna-ho a intentar.",
+  "nav": {
+    "dashboard": "Inici",
+    "inventario": "Inventari",
+    "incidencias": "Incidències",
+    "usuarios": "Usuaris",
+    "configuracion": "Configuració"
+  },
+  "roles": {
+    "admin": "Administrador",
+    "tecnico": "Tècnic",
+    "pas": "PAS",
+    "profesor": "Professor",
+    "alumno": "Alumne"
+  }
+}

@@ -4,10 +4,16 @@ FROM node:20-alpine AS build
 WORKDIR /app
 
 COPY package.json ./
-# Usamos npm install ya que aún no hay package-lock.json
 RUN npm install
 
 COPY . .
+
+# Inyectamos las variables de entorno para que Vite las use en el build
+ARG VITE_API_URL
+ARG VITE_APP_URL
+RUN echo "VITE_API_URL=$VITE_API_URL" > .env
+RUN echo "VITE_APP_URL=$VITE_APP_URL" >> .env
+
 RUN npm run build
 
 # Stage 2 (serve)

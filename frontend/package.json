@@ -1,0 +1,8 @@
+{
+  "name": "eskol-frontend-dummy",
+  "version": "1.0.0",
+  "description": "Dummy package to allow initial Docker build",
+  "scripts": {
+    "build": "mkdir -p dist && cp index.html dist/"
+  }
+}

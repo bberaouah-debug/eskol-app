@@ -1,25 +1,23 @@
-version: '3.8'
-
 services:
-  nginx:
-    image: nginx:alpine
-    ports:
-      - "${PORT_NGINX_HTTP:-80}:80"
-      - "${PORT_NGINX_HTTPS:-443}:443"
-    networks:
-      - eskol_net
-    depends_on:
-      - frontend
-      - backend
-      - wordpress
+  # nginx:
+  #   image: nginx:alpine
+  #   ports:
+  #     - "80:80"
+  #     - "443:443"
+  #   networks:
+  #     - eskol_net
+  #   depends_on:
+  #     - frontend
+  #     - backend
+  #     - wordpress
 
   backend:
     build:
       context: ./backend
     env_file:
       - .env
-    expose:
-      - "8000"
+    ports:
+      - "8084:8000"
     networks:
       - eskol_net
     depends_on:
@@ -29,8 +27,8 @@ services:
   frontend:
     build:
       context: ./frontend
-    expose:
-      - "80"
+    ports:
+      - "8083:80"
     networks:
       - eskol_net
 
@@ -38,8 +36,8 @@ services:
     image: wordpress:latest
     env_file:
       - .env
-    expose:
-      - "80"
+    ports:
+      - "8082:80"
     volumes:
       - ./data/wordpress:/var/www/html
     networks:
@@ -74,7 +72,7 @@ services:
   phpmyadmin:
     image: phpmyadmin:latest
     ports:
-      - "${PORT_PHPMYADMIN:-8080}:80"
+      - "8080:80"
     environment:
       PMA_HOST: mariadb
     networks:
@@ -85,7 +83,7 @@ services:
   n8n:
     image: n8nio/n8n
     ports:
-      - "${PORT_N8N:-5678}:5678"
+      - "8085:5678"
     volumes:
       - ./data/n8n:/home/node/.n8n
     env_file:

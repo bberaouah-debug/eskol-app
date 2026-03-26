@@ -1,0 +1,40 @@
+{
+  "title": "Inventari del Centre",
+  "add_item": "Afegir Element",
+  "search_placeholder": "Cerca per nom o codi de barres...",
+  "filter_category": "Categoria",
+  "filter_status": "Estat",
+  "filter_space": "Espai",
+  "all": "Tots",
+  "view_cards": "Vista de Targetes",
+  "view_table": "Vista de Taula",
+  "table": {
+    "name": "Nom",
+    "barcode": "Cod. Barres",
+    "category": "Categoria",
+    "status": "Estat",
+    "space": "Espai",
+    "actions": "Accions"
+  },
+  "card": {
+    "location": "Ubicació"
+  },
+  "no_items": "No s'han trobat elements de l'inventari.",
+  "status": {
+    "disponible": "Disponible",
+    "en_uso": "En ús",
+    "en_reparacion": "En reparació",
+    "de_baja": "De baixa",
+    "reservado": "Reservat"
+  },
+  "categories": {
+    "Ordenador": "Ordinador",
+    "Portatil": "Portàtil",
+    "Impresora": "Impressora",
+    "Disco_Duro": "Disc Dur",
+    "Periferico": "Perifèric",
+    "Monitor": "Monitor",
+    "Cable": "Cable",
+    "Otro": "Altre"
+  }
+}

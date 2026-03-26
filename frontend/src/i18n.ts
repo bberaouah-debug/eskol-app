@@ -7,11 +7,13 @@ import esCommon from './locales/es/common.json';
 import esAuth from './locales/es/auth.json';
 import esDashboard from './locales/es/dashboard.json';
 import esUsers from './locales/es/users.json';
+import esInventario from './locales/es/inventario.json';
 
 import caCommon from './locales/ca/common.json';
 import caAuth from './locales/ca/auth.json';
 import caDashboard from './locales/ca/dashboard.json';
 import caUsers from './locales/ca/users.json';
+import caInventario from './locales/ca/inventario.json';
 
 i18n
   .use(LanguageDetector)
@@ -23,12 +25,14 @@ i18n
         auth: esAuth,
         dashboard: esDashboard,
         users: esUsers,
+        inventario: esInventario,
       },
       ca: {
         common: caCommon,
         auth: caAuth,
         dashboard: caDashboard,
         users: caUsers,
+        inventario: caInventario,
       },
     },
     fallbackLng: 'es',

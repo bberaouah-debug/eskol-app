@@ -5,6 +5,8 @@ import Dashboard from './pages/Dashboard';
 import Layout from './components/Layout';
 import ProtectedRoute from './components/ProtectedRoute';
 import Users from './pages/Users';
+import Inventory from './pages/Inventory';
+import ItemDetail from './pages/ItemDetail';
 import './i18n';
 
 function App() {
@@ -16,7 +18,8 @@ function App() {
           
           <Route element={<ProtectedRoute><Layout /></ProtectedRoute>}>
             <Route path="/" element={<Dashboard />} />
-            <Route path="/inventario" element={<div>Página de Inventario (Próximamente)</div>} />
+            <Route path="/inventario" element={<Inventory />} />
+            <Route path="/inventario/:id" element={<ItemDetail />} />
             
             {/* Rutas para técnicos y admins */}
             <Route element={<ProtectedRoute allowedRoles={['admin', 'tecnico']}><Outlet /></ProtectedRoute>}>

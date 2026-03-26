@@ -12,6 +12,7 @@
   "no_results": "No s'han trobat resultats",
   "confirm_delete": "Estàs segur que vols eliminar aquest element?",
   "error_generic": "S'ha produït un error. Torna-ho a intentar.",
+  "back": "Tornar",
   "nav": {
     "dashboard": "Inici",
     "inventario": "Inventari",

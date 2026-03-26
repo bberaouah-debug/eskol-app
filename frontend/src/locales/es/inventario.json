@@ -1,0 +1,40 @@
+{
+  "title": "Inventario del Centro",
+  "add_item": "Añadir Elemento",
+  "search_placeholder": "Buscar por nombre o código de barras...",
+  "filter_category": "Categoría",
+  "filter_status": "Estado",
+  "filter_space": "Espacio",
+  "all": "Todos",
+  "view_cards": "Vista de Tarjetas",
+  "view_table": "Vista de Tabla",
+  "table": {
+    "name": "Nombre",
+    "barcode": "Cód. Barras",
+    "category": "Categoría",
+    "status": "Estado",
+    "space": "Espacio",
+    "actions": "Acciones"
+  },
+  "card": {
+    "location": "Ubicación"
+  },
+  "no_items": "No se han encontrado elementos del inventario.",
+  "status": {
+    "disponible": "Disponible",
+    "en_uso": "En uso",
+    "en_reparacion": "En reparación",
+    "de_baja": "De baja",
+    "reservado": "Reservado"
+  },
+  "categories": {
+    "Ordenador": "Ordenador",
+    "Portatil": "Portátil",
+    "Impresora": "Impresora",
+    "Disco_Duro": "Disco Duro",
+    "Periferico": "Periférico",
+    "Monitor": "Monitor",
+    "Cable": "Cable",
+    "Otro": "Otro"
+  }
+}

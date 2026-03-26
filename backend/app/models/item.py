@@ -6,10 +6,10 @@ from app.core.database import Base
 
 class CategoriaEnum(str, enum.Enum):
     Ordenador = "Ordenador"
-    Portatil = "Portátil"
+    Portatil = "Portatil"
     Impresora = "Impresora"
     Disco_Duro = "Disco_Duro"
-    Periferico = "Periférico"
+    Periferico = "Periferico"
     Monitor = "Monitor"
     Cable = "Cable"
     Otro = "Otro"

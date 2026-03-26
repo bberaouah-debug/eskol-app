@@ -12,6 +12,7 @@
   "no_results": "No se han encontrado resultados",
   "confirm_delete": "¿Estás seguro de que quieres eliminar este elemento?",
   "error_generic": "Ha ocurrido un error. Inténtalo de nuevo.",
+  "back": "Volver",
   "nav": {
     "dashboard": "Inicio",
     "inventario": "Inventario",

@@ -6,6 +6,7 @@ from app.schemas.espacio import EspacioResponse
 
 class ItemBase(BaseModel):
     codigo_barras: Optional[str] = None
+    numero_serie: Optional[str] = None
     nombre: str
     descripcion: Optional[str] = None
     categoria: CategoriaEnum = CategoriaEnum.Otro
@@ -18,6 +19,7 @@ class ItemCreate(ItemBase):
 
 class ItemUpdate(BaseModel):
     codigo_barras: Optional[str] = None
+    numero_serie: Optional[str] = None
     nombre: Optional[str] = None
     descripcion: Optional[str] = None
     categoria: Optional[CategoriaEnum] = None

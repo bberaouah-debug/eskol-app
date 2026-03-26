@@ -16,9 +16,7 @@
     "space": "Espacio",
     "actions": "Acciones"
   },
-  "card": {
-    "location": "Ubicación"
-  },
+  "card": { "location": "Ubicación" },
   "no_items": "No se han encontrado elementos del inventario.",
   "status": {
     "disponible": "Disponible",
@@ -36,5 +34,33 @@
     "Monitor": "Monitor",
     "Cable": "Cable",
     "Otro": "Otro"
+  },
+  "form": {
+    "name_label": "Nombre *",
+    "barcode_label": "Código de Barras",
+    "category_label": "Categoría",
+    "status_label": "Estado",
+    "space_label": "Espacio",
+    "description_label": "Descripción",
+    "no_space": "Sin espacio",
+    "photo_section": "Foto del elemento",
+    "take_photo": "Hacer foto",
+    "select_file": "Seleccionar imagen",
+    "change_photo": "Cambiar foto",
+    "remove_photo": "Quitar foto",
+    "scan_barcode": "Escanear código"
+  },
+  "detail": {
+    "photos": "Fotos",
+    "add_photo": "Añadir foto",
+    "uploading": "Subiendo...",
+    "no_photos": "Sin fotos todavía",
+    "no_photos_hint": "Haz clic en \"Añadir foto\" para capturar una",
+    "info": "Información",
+    "category": "Categoría",
+    "barcode": "Código de Barras",
+    "space": "Espacio",
+    "created": "Fecha de Alta",
+    "description": "Descripción"
   }
 }

@@ -26,6 +26,7 @@ class Item(Base):
 
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     codigo_barras = Column(String(50), unique=True, index=True, nullable=True)
+    numero_serie = Column(String(100), nullable=True)
     nombre = Column(String(200), nullable=False)
     descripcion = Column(Text, nullable=True)
     categoria = Column(Enum(CategoriaEnum), default=CategoriaEnum.Otro, nullable=False)

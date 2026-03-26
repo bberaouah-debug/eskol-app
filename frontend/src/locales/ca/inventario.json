@@ -16,9 +16,7 @@
     "space": "Espai",
     "actions": "Accions"
   },
-  "card": {
-    "location": "Ubicació"
-  },
+  "card": { "location": "Ubicació" },
   "no_items": "No s'han trobat elements de l'inventari.",
   "status": {
     "disponible": "Disponible",
@@ -36,5 +34,33 @@
     "Monitor": "Monitor",
     "Cable": "Cable",
     "Otro": "Altre"
+  },
+  "form": {
+    "name_label": "Nom *",
+    "barcode_label": "Codi de Barres",
+    "category_label": "Categoria",
+    "status_label": "Estat",
+    "space_label": "Espai",
+    "description_label": "Descripció",
+    "no_space": "Sense espai",
+    "photo_section": "Foto de l'element",
+    "take_photo": "Fer foto",
+    "select_file": "Seleccionar imatge",
+    "change_photo": "Canviar foto",
+    "remove_photo": "Treure foto",
+    "scan_barcode": "Escanejar codi"
+  },
+  "detail": {
+    "photos": "Fotos",
+    "add_photo": "Afegir foto",
+    "uploading": "Pujant...",
+    "no_photos": "Sense fotos encara",
+    "no_photos_hint": "Fes clic a \"Afegir foto\" per capturar-ne una",
+    "info": "Informació",
+    "category": "Categoria",
+    "barcode": "Codi de Barres",
+    "space": "Espai",
+    "created": "Data d'Alta",
+    "description": "Descripció"
   }
 }

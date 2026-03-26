@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../api/client';
 import { useAuth } from '../context/AuthContext';
 
 export default function Login() {
@@ -10,6 +10,7 @@ export default function Login() {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const [serverError, setServerError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
 
@@ -22,20 +23,28 @@ export default function Login() {
     setIsSubmitting(true);
     setServerError(null);
     try {
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/auth/login`, new URLSearchParams({
+      console.log('Intentando iniciar sesión en', api.defaults.baseURL);
+      const response = await api.post('/auth/login', new URLSearchParams({
         username: data.username,
         password: data.password
       }), {
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
       });
       
+      console.log('Login exitoso:', response.data.user.username);
       login(response.data.access_token, response.data.user);
       navigate('/');
     } catch (err: any) {
+      console.error('Error de login capturado:', err);
+      console.error('Status:', err.response?.status);
+      console.error('Data:', err.response?.data);
+      console.error('Message:', err.message);
+      
       if (err.response?.status === 401) {
-        setServerError(t('error_credentials'));
+        setServerError(t('error_credentials') || 'Credenciales incorrectas');
       } else {
-        setServerError(t('error_server'));
+        const errorMsg = err.message || 'Error desconocido';
+        setServerError((t('error_server') || 'Error en el servidor') + ` [${errorMsg}]`);
       }
     } finally {
       setIsSubmitting(false);
@@ -71,13 +80,33 @@ export default function Login() {
               />
             </div>
 
-            <div className="form-group">
+            <div className="form-group" style={{ position: 'relative' }}>
               <label>{t('password')}</label>
-              <input 
-                type="password" 
-                {...register('password', { required: true })} 
-                className={errors.password ? 'input-error' : ''}
-              />
+              <div style={{ display: 'flex', alignItems: 'center', position: 'relative' }}>
+                <input 
+                  type={showPassword ? "text" : "password"} 
+                  {...register('password', { required: true })} 
+                  className={errors.password ? 'input-error' : ''}
+                  style={{ paddingRight: '40px', width: '100%' }}
+                />
+                <button 
+                  type="button" 
+                  onClick={() => setShowPassword(!showPassword)}
+                  style={{ 
+                    position: 'absolute', 
+                    right: '10px', 
+                    background: 'transparent', 
+                    border: 'none', 
+                    color: 'var(--text-muted)', 
+                    cursor: 'pointer',
+                    fontSize: '1.2rem',
+                    padding: '0'
+                  }}
+                  title={showPassword ? "Ocultar contraseña" : "Ver contraseña"}
+                >
+                  {showPassword ? "🙈" : "👁️"}
+                </button>
+              </div>
             </div>
 
             {serverError && <div className="error-banner">{serverError}</div>}

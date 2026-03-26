@@ -1,6 +1,7 @@
 {
   "title": "Inventario del Centro",
   "add_item": "Añadir Elemento",
+  "print_labels": "Imprimir Etiquetas",
   "search_placeholder": "Buscar por nombre o código de barras...",
   "filter_category": "Categoría",
   "filter_status": "Estado",

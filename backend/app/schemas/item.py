@@ -3,13 +3,14 @@ from typing import Optional, List
 from datetime import datetime
 from app.models.item import CategoriaEnum, EstadoEnum
 from app.schemas.espacio import EspacioResponse
+from app.schemas.tipus_dispositiu import TipusDispositiuResponse
 
 class ItemBase(BaseModel):
     codigo_barras: Optional[str] = None
     numero_serie: Optional[str] = None
     nombre: str
     descripcion: Optional[str] = None
-    categoria: CategoriaEnum = CategoriaEnum.Otro
+    tipus_id: Optional[int] = None
     estado: EstadoEnum = EstadoEnum.disponible
     espacio_id: Optional[int] = None
     activo: bool = True
@@ -22,7 +23,7 @@ class ItemUpdate(BaseModel):
     numero_serie: Optional[str] = None
     nombre: Optional[str] = None
     descripcion: Optional[str] = None
-    categoria: Optional[CategoriaEnum] = None
+    tipus_id: Optional[int] = None
     estado: Optional[EstadoEnum] = None
     espacio_id: Optional[int] = None
     activo: Optional[bool] = None
@@ -33,6 +34,7 @@ class ItemResponse(ItemBase):
     fecha_alta: datetime
     fecha_modificacion: Optional[datetime] = None
     espacio: Optional[EspacioResponse] = None
+    tipus: Optional[TipusDispositiuResponse] = None
 
     class Config:
         from_attributes = True

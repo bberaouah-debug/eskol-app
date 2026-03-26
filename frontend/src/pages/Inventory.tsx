@@ -7,16 +7,16 @@ import { useAuth } from '../context/AuthContext';
 import BarcodeScanner from '../components/BarcodeScanner';
 import CameraCapture from '../components/CameraCapture';
 
+interface TipusDispositiu { id: number; nom: string; prefix: string; icona: string; }
 interface Espacio { id: number; nombre: string; }
 interface Item {
   id: number;
   nombre: string;
   codigo_barras: string;
-  categoria: string;
+  tipus: TipusDispositiu;
   estado: string;
   espacio: Espacio;
 }
-const CATEGORIAS = ['Ordenador', 'Portatil', 'Impresora', 'Monitor', 'Periferico', 'Disco_Duro', 'Cable', 'Otro'];
 const ESTADOS = ['disponible', 'en_uso', 'en_reparacion', 'de_baja', 'reservado'];
 
 function ItemCard({ item, onClick }: { item: Item, onClick: () => void }) {
@@ -49,7 +49,7 @@ function ItemCard({ item, onClick }: { item: Item, onClick: () => void }) {
       </div>
       <div className="item-info">
         <div className="item-meta">
-          <span className="item-category">{t(`inventario:categories.${item.categoria}`)}</span>
+          <span className="item-category">{item.tipus?.nom || '—'}</span>
         </div>
         <h3 className="item-name">{item.nombre}</h3>
         <div className="item-details">
@@ -68,6 +68,7 @@ export default function Inventory() {
 
   const [items, setItems] = useState<Item[]>([]);
   const [espacios, setEspacios] = useState<Espacio[]>([]);
+  const [tipus, setTipus] = useState<TipusDispositiu[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [viewMode, setViewMode] = useState<'grid' | 'table'>('grid');
   const [showModal, setShowModal] = useState(false);
@@ -83,25 +84,27 @@ export default function Inventory() {
   // Filters
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedEspacio, setSelectedEspacio] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedTipus, setSelectedTipus] = useState('');
   const [selectedStatus, setSelectedStatus] = useState('');
+  const [selectedItems, setSelectedItems] = useState<number[]>([]);
 
   const canEdit = user?.role === 'admin' || user?.role === 'tecnico';
   const { register, handleSubmit, reset, setValue } = useForm();
 
-  useEffect(() => { fetchData(); }, [searchTerm, selectedEspacio, selectedCategory, selectedStatus]);
+  useEffect(() => { fetchData(); }, [searchTerm, selectedEspacio, selectedTipus, selectedStatus]);
 
   const fetchData = async () => {
     try {
       setIsLoading(true);
       const params: any = {};
       if (searchTerm) params.buscar = searchTerm;
-      if (selectedCategory) params.categoria = selectedCategory;
+      if (selectedTipus) params.tipus_id = selectedTipus;
       if (selectedStatus) params.estado = selectedStatus;
 
-      const [itemsRes, espaciosRes] = await Promise.all([
+      const [itemsRes, espaciosRes, tipusRes] = await Promise.all([
         api.get('/items/', { params }),
-        api.get('/espacios/')
+        api.get('/espacios/'),
+        api.get('/tipus-dispositiu/')
       ]);
 
       let filtered = itemsRes.data;
@@ -110,6 +113,7 @@ export default function Inventory() {
       }
       setItems(filtered);
       setEspacios(espaciosRes.data);
+      setTipus(tipusRes.data);
     } catch (err) {
       console.error('Error fetching inventory', err);
     } finally {
@@ -197,11 +201,22 @@ export default function Inventory() {
           <h1>{t('inventario:title')}</h1>
           <p>{t('common:nav.inventario')}</p>
         </div>
-        {canEdit && (
-          <button className="primary-btn" onClick={openModal}>
-            <span>+</span> {t('inventario:add_item')}
-          </button>
-        )}
+        <div style={{ display: 'flex', gap: '1rem' }}>
+          {selectedItems.length > 0 && (
+            <button 
+              className="primary-btn active" 
+              onClick={() => navigate('/inventario/imprimir', { state: { selectedItems: items.filter(i => selectedItems.includes(i.id)) } })}
+              style={{ background: '#ffcc00', color: 'black' }}
+            >
+              🖨️ {t('inventario:print_labels')} ({selectedItems.length})
+            </button>
+          )}
+          {canEdit && (
+            <button className="primary-btn" onClick={openModal}>
+              <span>+</span> {t('inventario:add_item')}
+            </button>
+          )}
+        </div>
       </header>
 
       {/* Filters */}
@@ -221,9 +236,9 @@ export default function Inventory() {
           {espacios.map(esp => <option key={esp.id} value={esp.id}>{esp.nombre}</option>)}
         </select>
 
-        <select className="filter-select" value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)}>
+        <select className="filter-select" value={selectedTipus} onChange={(e) => setSelectedTipus(e.target.value)}>
           <option value="">{t('inventario:filter_category')}: {t('inventario:all')}</option>
-          {CATEGORIAS.map(cat => <option key={cat} value={cat}>{t(`inventario:categories.${cat}`)}</option>)}
+          {tipus.map(t => <option key={t.id} value={t.id}>{t.nom}</option>)}
         </select>
 
         <select className="filter-select" value={selectedStatus} onChange={(e) => setSelectedStatus(e.target.value)}>
@@ -247,6 +262,16 @@ export default function Inventory() {
           <table className="data-table">
             <thead>
               <tr>
+                <th style={{ width: '40px' }}>
+                  <input 
+                    type="checkbox" 
+                    onChange={(e) => {
+                      if (e.target.checked) setSelectedItems(items.map(i => i.id));
+                      else setSelectedItems([]);
+                    }}
+                    checked={selectedItems.length === items.length && items.length > 0}
+                  />
+                </th>
                 <th>{t('inventario:table.name')}</th>
                 <th>{t('inventario:table.barcode')}</th>
                 <th>{t('inventario:table.space')}</th>
@@ -258,10 +283,21 @@ export default function Inventory() {
             <tbody>
               {items.map(item => (
                 <tr key={item.id} onClick={() => navigate(`/inventario/${item.id}`)} style={{ cursor: 'pointer' }}>
+                  <td onClick={(e) => e.stopPropagation()}>
+                    <input 
+                      type="checkbox" 
+                      checked={selectedItems.includes(item.id)}
+                      onChange={() => {
+                        setSelectedItems(prev => 
+                          prev.includes(item.id) ? prev.filter(id => id !== item.id) : [...prev, item.id]
+                        );
+                      }}
+                    />
+                  </td>
                   <td><strong>{item.nombre}</strong></td>
                   <td><code>{item.codigo_barras}</code></td>
                   <td>{item.espacio?.nombre || '—'}</td>
-                  <td>{t(`inventario:categories.${item.categoria}`)}</td>
+                  <td>{item.tipus?.nom || '—'}</td>
                   <td><span className={`status-badge ${item.estado}`}>{t(`inventario:status.${item.estado}`)}</span></td>
                   <td><div className="action-btns"><button className="icon-btn" title={t('common:edit')} onClick={e => { e.stopPropagation(); }}>✎</button></div></td>
                 </tr>
@@ -377,9 +413,10 @@ export default function Inventory() {
                   <div className="form-field-row">
                     <div className="form-field">
                       <label className="field-label">{t('inventario:form.category_label')}</label>
-                      <select {...register('categoria')} className="field-select">
-                        {CATEGORIAS.map(cat => (
-                          <option key={cat} value={cat}>{t(`inventario:categories.${cat}`)}</option>
+                      <select {...register('tipus_id')} className="field-select">
+                        <option value="">{t('common:select')}...</option>
+                        {tipus.map(t => (
+                          <option key={t.id} value={t.id}>{t.nom}</option>
                         ))}
                       </select>
                     </div>

@@ -1,6 +1,7 @@
 {
   "title": "Inventari del Centre",
   "add_item": "Afegir Element",
+  "print_labels": "Imprimir Etiquetes",
   "search_placeholder": "Cerca per nom o codi de barres...",
   "filter_category": "Categoria",
   "filter_status": "Estat",

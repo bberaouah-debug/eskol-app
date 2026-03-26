@@ -29,11 +29,36 @@ def get_items(
             Item.codigo_barras.ilike(f"%{buscar}%")
         )
         query = query.filter(search_filter)
-    
-    return query.offset(skip).limit(limit).all()
+from app.models.tipus_dispositiu import TipusDispositiu
 
 def create_item(db: Session, item: ItemCreate, user_id: int):
-    db_item = Item(**item.dict(), creado_por_id=user_id)
+    item_data = item.dict()
+    
+    # Generación automática de código de barras si viene vacío
+    if not item_data.get("codigo_barras") and item_data.get("tipus_id"):
+        # Obtener el prefijo dinámico del tipo de dispositivo
+        tipus = db.query(TipusDispositiu).filter(TipusDispositiu.id == item_data["tipus_id"]).first()
+        prefix = tipus.prefix if tipus else "OTR"
+        
+        # Buscar el último ítem de este tipo que tenga el prefijo
+        last_item = db.query(Item).filter(
+            Item.tipus_id == item_data["tipus_id"],
+            Item.codigo_barras.like(f"{prefix}-%")
+        ).order_by(Item.codigo_barras.desc()).first()
+        
+        next_num = 1
+        if last_item and last_item.codigo_barras:
+            try:
+                # Extraer el número del final (ej: LPT-00042 -> 42)
+                last_num_str = last_item.codigo_barras.split('-')[-1]
+                next_num = int(last_num_str) + 1
+            except (ValueError, IndexError):
+                next_num = 1
+        
+        # Formatear con ceros a la izquierda (5 dígitos)
+        item_data["codigo_barras"] = f"{prefix}-{next_num:05d}"
+
+    db_item = Item(**item_data, creado_por_id=user_id)
     db.add(db_item)
     db.commit()
     db.refresh(db_item)

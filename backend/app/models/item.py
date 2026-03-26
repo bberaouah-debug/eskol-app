@@ -3,16 +3,7 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 import enum
 from app.core.database import Base
-
-class CategoriaEnum(str, enum.Enum):
-    Ordenador = "Ordenador"
-    Portatil = "Portatil"
-    Impresora = "Impresora"
-    Disco_Duro = "Disco_Duro"
-    Periferico = "Periferico"
-    Monitor = "Monitor"
-    Cable = "Cable"
-    Otro = "Otro"
+from app.models.tipus_dispositiu import TipusDispositiu
 
 class EstadoEnum(str, enum.Enum):
     disponible = "disponible"
@@ -29,7 +20,10 @@ class Item(Base):
     numero_serie = Column(String(100), nullable=True)
     nombre = Column(String(200), nullable=False)
     descripcion = Column(Text, nullable=True)
-    categoria = Column(Enum(CategoriaEnum), default=CategoriaEnum.Otro, nullable=False)
+    
+    tipus_id = Column(Integer, ForeignKey("tipus_dispositiu.id"), nullable=True)
+    tipus = relationship("TipusDispositiu")
+    
     estado = Column(Enum(EstadoEnum), default=EstadoEnum.disponible, nullable=False)
     
     espacio_id = Column(Integer, ForeignKey("espacios.id"), nullable=True)

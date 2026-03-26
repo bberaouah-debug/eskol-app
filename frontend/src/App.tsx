@@ -7,6 +7,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import Users from './pages/Users';
 import Inventory from './pages/Inventory';
 import ItemDetail from './pages/ItemDetail';
+import PrintLabels from './pages/PrintLabels';
 import './i18n';
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
             <Route path="/" element={<Dashboard />} />
             <Route path="/inventario" element={<Inventory />} />
             <Route path="/inventario/:id" element={<ItemDetail />} />
+            <Route path="/inventario/imprimir" element={<PrintLabels />} />
             
             {/* Rutas para técnicos y admins */}
             <Route element={<ProtectedRoute allowedRoles={['admin', 'tecnico']}><Outlet /></ProtectedRoute>}>

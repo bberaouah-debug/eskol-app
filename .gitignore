@@ -3,3 +3,19 @@
 
 # Volúmenes de datos de Docker
 data/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.venv/
+venv/
+
+# Node
+node_modules/
+dist/
+.eslintcache
+
+# Logs
+*.log

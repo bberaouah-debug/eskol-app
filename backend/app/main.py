@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
-from app.api import auth, users, items, espacios, fotos
+from app.api import auth, users, items, espacios, fotos, tipus_dispositiu
 from app.core.database import Base, engine
 from app.core.mongodb import connect_mongo, disconnect_mongo
 from app.seed import create_initial_data
@@ -10,6 +10,7 @@ from app.seed import create_initial_data
 from app.models.user import User
 from app.models.item import Item
 from app.models.espacio import Espacio
+from app.models.tipus_dispositiu import TipusDispositiu
 Base.metadata.create_all(bind=engine)
 
 @asynccontextmanager
@@ -33,6 +34,7 @@ app.include_router(auth.router, prefix="/auth", tags=["auth"])
 app.include_router(users.router, prefix="/users", tags=["users"])
 app.include_router(items.router, prefix="/items", tags=["items"])
 app.include_router(espacios.router, prefix="/espacios", tags=["espacios"])
+app.include_router(tipus_dispositiu.router, prefix="/tipus-dispositiu", tags=["tipus-dispositiu"])
 app.include_router(fotos.router, prefix="/items", tags=["fotos"])
 
 @app.get("/")

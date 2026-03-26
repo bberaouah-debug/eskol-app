@@ -6,10 +6,12 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 import esCommon from './locales/es/common.json';
 import esAuth from './locales/es/auth.json';
 import esDashboard from './locales/es/dashboard.json';
+import esUsers from './locales/es/users.json';
 
 import caCommon from './locales/ca/common.json';
 import caAuth from './locales/ca/auth.json';
 import caDashboard from './locales/ca/dashboard.json';
+import caUsers from './locales/ca/users.json';
 
 i18n
   .use(LanguageDetector)
@@ -20,11 +22,13 @@ i18n
         common: esCommon,
         auth: esAuth,
         dashboard: esDashboard,
+        users: esUsers,
       },
       ca: {
         common: caCommon,
         auth: caAuth,
         dashboard: caDashboard,
+        users: caUsers,
       },
     },
     fallbackLng: 'es',

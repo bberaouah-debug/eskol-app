@@ -18,6 +18,8 @@ services:
       - .env
     ports:
       - "8084:8000"
+    volumes:
+      - ./backend:/app
     networks:
       - eskol_net
     depends_on:
@@ -32,6 +34,9 @@ services:
         - VITE_APP_URL=${VITE_APP_URL}
     ports:
       - "8083:80"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
     networks:
       - eskol_net
 

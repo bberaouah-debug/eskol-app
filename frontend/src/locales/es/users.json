@@ -1,0 +1,25 @@
+{
+  "title": "Gestión de Usuarios",
+  "new_user": "Nuevo Usuario",
+  "edit_user": "Editar Usuario",
+  "deactivate": "Desactivar",
+  "table": {
+    "username": "Nombre",
+    "email": "Email",
+    "role": "Rol",
+    "status": "Estado",
+    "actions": "Acciones"
+  },
+  "status": {
+    "active": "Activo",
+    "inactive": "Inactivo"
+  },
+  "form": {
+    "username": "Nombre de usuario",
+    "email": "Correo electrónico",
+    "password": "Contraseña (en blanco para no cambiar)",
+    "role": "Rol de acceso",
+    "save": "Guardar cambios",
+    "create": "Crear usuario"
+  }
+}

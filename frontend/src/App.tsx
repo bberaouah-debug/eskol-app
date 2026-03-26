@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Layout from './components/Layout';
 import ProtectedRoute from './components/ProtectedRoute';
+import Users from './pages/Users';
 import './i18n';
 
 function App() {
@@ -24,7 +25,7 @@ function App() {
 
             {/* Rutas solo para admins */}
             <Route element={<ProtectedRoute allowedRoles={['admin']}><Outlet /></ProtectedRoute>}>
-              <Route path="/usuarios" element={<div>Administración de Usuarios (Próximamente)</div>} />
+              <Route path="/usuarios" element={<Users />} />
               <Route path="/configuracion" element={<div>Configuración del Sistema (Próximamente)</div>} />
             </Route>
           </Route>

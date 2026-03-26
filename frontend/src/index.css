@@ -82,4 +82,38 @@ body {
 
 .content-placeholder { background-color: var(--bg-secondary); border: 1px dashed var(--border); padding: 4rem; border-radius: 12px; text-align: center; color: var(--text-muted); }
 
+/* DATA TABLES & MODALS */
+.data-table-container { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-top: 1.5rem; }
+.data-table { width: 100%; border-collapse: collapse; text-align: left; }
+.data-table th { background: rgba(255,255,255,0.03); padding: 1rem 1.5rem; font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.1em; border-bottom: 1px solid var(--border); }
+.data-table td { padding: 1rem 1.5rem; border-bottom: 1px solid var(--border); font-size: 0.95rem; vertical-align: middle; }
+.data-table tr:last-child td { border-bottom: none; }
+.data-table tr:hover td { background: rgba(255,255,255,0.01); }
+
+.status-badge { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.2rem 0.6rem; border-radius: 12px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; }
+.status-active { background: rgba(46, 213, 115, 0.1); color: #2ed573; }
+.status-inactive { background: rgba(255, 71, 87, 0.1); color: #ff4757; }
+
+.action-btns { display: flex; gap: 0.8rem; }
+.icon-btn { background: transparent; border: 1px solid var(--border); color: var(--text-muted); padding: 0.4rem; border-radius: 6px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; }
+.icon-btn:hover { border-color: var(--accent-color); color: var(--accent-color); }
+.icon-btn.danger:hover { border-color: var(--error); color: var(--error); }
+
+.primary-btn { background: var(--accent-color); color: var(--bg-primary); border: none; padding: 0.8rem 1.5rem; border-radius: 8px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 0.5rem; transition: transform 0.2s; }
+.primary-btn:hover { transform: translateY(-2px); opacity: 0.9; }
+
+/* MODAL */
+.modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; z-index: 1000; padding: 1rem; }
+.modal-content { background: var(--bg-secondary); border: 1px solid var(--border); width: 100%; max-width: 500px; border-radius: 16px; position: relative; animation: slideUp 0.3s ease-out; }
+@keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+.modal-header { padding: 1.5rem; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+.modal-header h2 { font-size: 1.5rem; }
+.close-modal { background: none; border: none; color: var(--text-muted); font-size: 1.5rem; cursor: pointer; }
+.modal-body { padding: 1.5rem; }
+.modal-footer { padding: 1.5rem; border-top: 1px solid var(--border); display: flex; justify-content: flex-end; gap: 1rem; }
+
+.form-row { display: flex; flex-direction: column; gap: 1.2rem; }
+.form-field select { width: 100%; padding: 0.8rem; background: var(--input-bg); border: 1px solid var(--border); color: var(--text-main); border-radius: 6px; font-size: 1rem; outline: none; appearance: none; }
+.form-field select:focus { border-color: var(--accent-color); }
+
 @media (max-width: 900px) { .login-layout { flex-direction: column; } .login-visual { min-height: 30vh; padding: 2rem; } .login-panel { max-width: 100%; padding: 2rem; } }

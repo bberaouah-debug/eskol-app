@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 from typing import Optional, List
 from datetime import datetime
-from app.models.item import CategoriaEnum, EstadoEnum
+from app.models.item import EstadoEnum
 from app.schemas.espacio import EspacioResponse
 from app.schemas.tipus_dispositiu import TipusDispositiuResponse
 

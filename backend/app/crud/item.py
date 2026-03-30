@@ -1,7 +1,8 @@
 from sqlalchemy.orm import Session
 from sqlalchemy import or_
 from typing import Optional
-from app.models.item import Item, CategoriaEnum, EstadoEnum
+from app.models.item import Item, EstadoEnum
+from app.models.tipus_dispositiu import TipusDispositiu
 from app.schemas.item import ItemCreate, ItemUpdate
 
 def get_item(db: Session, item_id: int):
@@ -14,13 +15,10 @@ def get_items(
     db: Session, 
     skip: int = 0, 
     limit: int = 100, 
-    categoria: Optional[CategoriaEnum] = None,
     estado: Optional[EstadoEnum] = None,
     buscar: Optional[str] = None
 ):
     query = db.query(Item)
-    if categoria:
-        query = query.filter(Item.categoria == categoria)
     if estado:
         query = query.filter(Item.estado == estado)
     if buscar:
@@ -29,7 +27,7 @@ def get_items(
             Item.codigo_barras.ilike(f"%{buscar}%")
         )
         query = query.filter(search_filter)
-from app.models.tipus_dispositiu import TipusDispositiu
+    return query.offset(skip).limit(limit).all()
 
 def create_item(db: Session, item: ItemCreate, user_id: int):
     item_data = item.dict()

@@ -4,7 +4,7 @@ from typing import List, Optional
 from app.core.database import get_db
 from app.api.auth import get_current_user
 from app.models.user import User, RoleEnum
-from app.models.item import CategoriaEnum, EstadoEnum
+from app.models.item import EstadoEnum
 from app.schemas.item import ItemCreate, ItemUpdate, ItemResponse
 from app.crud import item as crud_item
 
@@ -23,14 +23,13 @@ def get_admin_user(current_user: User = Depends(get_current_user)):
 @router.get("/", response_model=List[ItemResponse])
 def list_items(
     db: Session = Depends(get_db),
-    categoria: Optional[CategoriaEnum] = Query(None),
     estado: Optional[EstadoEnum] = Query(None),
     buscar: Optional[str] = Query(None),
     skip: int = 0,
     limit: int = 100,
     current_user: User = Depends(get_current_user)
 ):
-    return crud_item.get_items(db, skip=skip, limit=limit, categoria=categoria, estado=estado, buscar=buscar)
+    return crud_item.get_items(db, skip=skip, limit=limit, estado=estado, buscar=buscar)
 
 @router.get("/{item_id}", response_model=ItemResponse)
 def get_item(
